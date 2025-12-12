@@ -1,75 +1,57 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { AppConfig, UserSession, showConnect } from '@stacks/connect';
+import { showConnect, openContractCall } from '@stacks/connect';
+import { StacksTestnet, StacksMainnet } from '@stacks/network';
 import {
-    makeContractCall,
-    broadcastTransaction,
     AnchorMode,
     PostConditionMode,
-    standardPrincipalCV,
-    uintCV,
+    stringAsciiCV,
+    makeStandardSTXPostCondition,
+    FungibleConditionCode,
 } from '@stacks/transactions';
-import { StacksMainnet } from '@stacks/network';
-
-const appConfig = new AppConfig(['store_write', 'publish_data']);
-const userSession = new UserSession({ appConfig });
 
 export default function Home() {
-    const [mounted, setMounted] = useState(false);
     const [userAddress, setUserAddress] = useState('');
     const [checkInCount, setCheckInCount] = useState(0);
-    const [lastDeployment, setLastDeployment] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
 
-    useEffect(() => {
-        setMounted(true);
-        if (userSession.isUserSignedIn()) {
-            const userData = userSession.loadUserData();
-            setUserAddress(userData.profile.stxAddress.mainnet);
-        }
-    }, []);
-
-    const handleConnect = () => {
+    const handleConnect = async () => {
         showConnect({
             appDetails: {
                 name: 'STX Daily Check-In',
-                icon: '/icon.png',
+                icon: typeof window !== 'undefined' ? window.location.origin + '/logo.png' : '',
             },
-            redirectTo: '/',
-            onFinish: () => {
-                window.location.reload();
+            onFinish: (data) => {
+                setUserAddress(data.userSession.loadUserData().profile.stxAddress.mainnet);
+                setMessage('✅ Wallet connected!');
             },
-            userSession,
+            onCancel: () => {
+                setMessage('❌ Connection cancelled');
+            },
         });
     };
 
-    const handleDisconnect = () => {
-        userSession.signUserOut();
-        window.location.reload();
-    };
-
     const handleCheckIn = async () => {
-        if (!userAddress) return;
+        if (!userAddress) {
+            setMessage('❌ Please connect wallet first');
+            return;
+        }
 
         setLoading(true);
         setMessage('');
 
         try {
-            const network = new StacksMainnet();
-            const contractAddress = 'SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT';
-            const contractName = 'builder-rewards';
-
-            const txOptions = {
-                contractAddress,
-                contractName,
+            await openContractCall({
+                contractAddress: 'SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT',
+                contractName: 'builder-rewards',
                 functionName: 'daily-check-in',
                 functionArgs: [],
-                network,
+                network: 'mainnet',
                 anchorMode: AnchorMode.Any,
-                postConditionMode: PostConditionMode.Allow,
-                onFinish: (data: any) => {
+                postConditionMode: PostConditionMode.Deny,
+                onFinish: (data) => {
                     setMessage(`✅ Check-in successful! TX: ${data.txId}`);
                     setCheckInCount(prev => prev + 1);
                     setLoading(false);
@@ -78,66 +60,26 @@ export default function Home() {
                     setMessage('❌ Transaction cancelled');
                     setLoading(false);
                 },
-            };
-
-            await makeContractCall(txOptions);
+            });
         } catch (error) {
             setMessage(`❌ Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
             setLoading(false);
         }
     };
-
-    const handleClaimReward = async () => {
-        if (!userAddress) return;
-
-        setLoading(true);
-        setMessage('');
-
-        try {
-            const network = new StacksMainnet();
-            const contractAddress = 'SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT';
-            const contractName = 'builder-rewards';
-
-            const txOptions = {
-                contractAddress,
-                contractName,
-                functionName: 'claim-daily-reward',
-                functionArgs: [],
-                network,
-                anchorMode: AnchorMode.Any,
-                postConditionMode: PostConditionMode.Allow,
-                onFinish: (data: any) => {
-                    setMessage(`✅ Reward claimed! TX: ${data.txId}`);
-                    setLoading(false);
-                },
-                onCancel: () => {
-                    setMessage('❌ Transaction cancelled');
-                    setLoading(false);
-                },
-            };
-
-            await makeContractCall(txOptions);
-        } catch (error) {
-            setMessage(`❌ Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
-            setLoading(false);
-        }
-    };
-
-    if (!mounted) return null;
 
     return (
         <div className="container">
             <header style={{ textAlign: 'center', marginBottom: '3rem' }}>
                 <h1>🎯 STX Daily Check-In</h1>
                 <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem' }}>
-                    Connect your wallet, check in daily, and deploy contracts on Stacks mainnet
+                    Connect your wallet and check in daily on Stacks mainnet
                 </p>
             </header>
 
             <div className="glass-card" style={{ marginBottom: '2rem', textAlign: 'center' }}>
                 {!userAddress ? (
                     <button className="btn btn-primary" onClick={handleConnect}>
-                        🔗 Connect Wallet
+                        🔗 Connect Leather Wallet
                     </button>
                 ) : (
                     <div>
@@ -145,9 +87,6 @@ export default function Home() {
                         <p style={{ fontFamily: 'monospace', marginBottom: '1rem', fontSize: '0.9rem' }}>
                             {userAddress}
                         </p>
-                        <button className="btn btn-secondary" onClick={handleDisconnect}>
-                            Disconnect
-                        </button>
                     </div>
                 )}
             </div>
@@ -184,14 +123,6 @@ export default function Home() {
                             >
                                 {loading ? <span className="loading"></span> : '📝'} Daily Check-In
                             </button>
-
-                            <button
-                                className="btn btn-primary"
-                                onClick={handleClaimReward}
-                                disabled={loading}
-                            >
-                                {loading ? <span className="loading"></span> : '🎁'} Claim Reward
-                            </button>
                         </div>
 
                         {message && (
@@ -217,12 +148,6 @@ export default function Home() {
                                 </div>
                             ))}
                         </div>
-                    </div>
-
-                    <div className="glass-card" style={{ marginTop: '2rem', textAlign: 'center' }}>
-                        <p style={{ color: 'var(--text-muted)' }}>
-                            💡 <strong>Builder Challenge Tip:</strong> Check in daily to maximize your rewards and activity score!
-                        </p>
                     </div>
                 </>
             )}
