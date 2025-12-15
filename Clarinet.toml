@@ -61,12 +61,63 @@ requirements = []
 # clarity_version = 3
 # epoch = 'latest'
 
-# ===== CLARITY 4 CONTRACT - FOR BUILDER CHALLENGE =====
+# ===== NEW CONTRACTS FOR BUILDER CHALLENGE (10 CONTRACTS) =====
 
-[contracts.clarity4-demo]
-path = 'contracts/clarity4-demo.clar'
+[contracts.wallet-manager]
+path = 'contracts/wallet-manager.clar'
 clarity_version = 3
 epoch = '3.0'
+
+[contracts.achievement-tracker]
+path = 'contracts/achievement-tracker.clar'
+clarity_version = 3
+epoch = '3.0'
+
+[contracts.leaderboard]
+path = 'contracts/leaderboard.clar'
+clarity_version = 3
+epoch = '3.0'
+
+[contracts.task-manager]
+path = 'contracts/task-manager.clar'
+clarity_version = 3
+epoch = '3.0'
+
+[contracts.access-control]
+path = 'contracts/access-control.clar'
+clarity_version = 3
+epoch = '3.0'
+
+[contracts.vote-poll]
+path = 'contracts/vote-poll.clar'
+clarity_version = 3
+epoch = '3.0'
+
+[contracts.referral-system]
+path = 'contracts/referral-system.clar'
+clarity_version = 3
+epoch = '3.0'
+
+[contracts.bookmark-manager]
+path = 'contracts/bookmark-manager.clar'
+clarity_version = 3
+epoch = '3.0'
+
+[contracts.notification-hub]
+path = 'contracts/notification-hub.clar'
+clarity_version = 3
+epoch = '3.0'
+
+[contracts.milestone-tracker]
+path = 'contracts/milestone-tracker.clar'
+clarity_version = 3
+epoch = '3.0'
+
+# ===== PREVIOUS CONTRACTS (COMMENTED OUT) =====
+# [contracts.clarity4-demo]
+# path = 'contracts/clarity4-demo.clar'
+# clarity_version = 3
+# epoch = '3.0'
 
 # ===== OLD CONTRACTS (COMMENTED OUT) =====
 # [contracts.tip-jar]
