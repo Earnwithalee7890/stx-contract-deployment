@@ -61,14 +61,14 @@ export default function ClientPage() {
 
             await openContractCall({
                 contractAddress: 'SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT',
-                contractName: 'builder-rewards',
+                contractName: 'builder-rewards-v2', // Updated to V2 contract with fees
                 functionName: 'daily-check-in',
                 functionArgs: [],
                 network: 'mainnet',
                 anchorMode: AnchorMode.Any,
-                postConditionMode: PostConditionMode.Deny,
+                postConditionMode: PostConditionMode.Allow, // Allow 5 microSTX fee payment
                 onFinish: (data) => {
-                    setMessage(`✅ Check-in successful! TX: ${data.txId}`);
+                    setMessage(`✅ Check-in successful! Fee paid: 5 microSTX | TX: ${data.txId}`);
                     setCheckInCount(prev => prev + 1);
                     setLoading(false);
                 },

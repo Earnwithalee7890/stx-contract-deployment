@@ -21,6 +21,7 @@
     "@stacks/network": "^7.2.0",
     "@stacks/stacks-blockchain-api-types": "^7.14.1",
     "@stacks/transactions": "^7.3.0",
+    "@stacks/wallet-sdk": "^7.2.0",
     "@types/node": "^24.4.0",
     "buffer": "^6.0.3",
     "chokidar-cli": "^3.0.0",

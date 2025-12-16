@@ -3,6 +3,14 @@
 
 (define-constant err-too-early (err u100))
 (define-constant err-not-found (err u101))
+(define-constant err-owner-only (err u200))
+
+;; Fee constant
+(define-constant lock-creation-fee u8) ;; 8 microSTX
+
+;; Fee tracking
+(define-data-var total-fees-collected uint u0)
+(define-data-var contract-owner principal tx-sender)
 
 (define-map locks uint {
   owner: principal,
@@ -14,7 +22,13 @@
 
 (define-public (create-lock (amount uint) (unlock-height uint))
   (let ((id (+ (var-get lock-nonce) u1)))
+    ;; Collect fee
+    (try! (stx-transfer? lock-creation-fee tx-sender (as-contract tx-sender)))
+    (var-set total-fees-collected (+ (var-get total-fees-collected) lock-creation-fee))
+    
+    ;; Transfer lock amount
     (try! (stx-transfer? amount tx-sender (as-contract tx-sender)))
+    
     (map-set locks id {
       owner: tx-sender,
       amount: amount,
@@ -22,6 +36,9 @@
       unlocked: false
     })
     (var-set lock-nonce id)
+    
+    ;; Log event
+    (print {event: "lock-fee", owner: tx-sender, amount: amount, fee: lock-creation-fee})
     (ok id)
   )
 )
@@ -41,4 +58,20 @@
 
 (define-read-only (get-lock (id uint))
   (ok (map-get? locks id))
+)
+
+;; Get total fees collected
+(define-read-only (get-total-fees)
+  (ok (var-get total-fees-collected))
+)
+
+;; Withdraw fees (owner only)
+(define-public (withdraw-fees)
+  (let ((amount (var-get total-fees-collected)))
+    (asserts! (is-eq tx-sender (var-get contract-owner)) err-owner-only)
+    (asserts! (> amount u0) (err u201))
+    (try! (as-contract (stx-transfer? amount tx-sender (var-get contract-owner))))
+    (var-set total-fees-collected u0)
+    (ok amount)
+  )
 )

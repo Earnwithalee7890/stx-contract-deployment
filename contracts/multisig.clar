@@ -1,6 +1,12 @@
 ;; Multisig Wallet Contract
 ;; Simple multisig wallet requiring 2 of 3 approvals
 
+;; Fee constants
+(define-constant proposal-fee u10) ;; 10 microSTX
+
+;; Fee tracking
+(define-data-var total-fees-collected uint u0)
+
 (define-constant owner-1 tx-sender)
 (define-data-var owner-2 principal tx-sender)
 (define-data-var owner-3 principal tx-sender)
@@ -16,6 +22,10 @@
 
 (define-public (propose-transaction (to principal) (amount uint))
   (let ((tx-id (+ (var-get tx-nonce) u1)))
+    ;; Collect fee
+    (try! (stx-transfer? proposal-fee tx-sender (as-contract tx-sender)))
+    (var-set total-fees-collected (+ (var-get total-fees-collected) proposal-fee))
+    
     (map-set pending-transactions tx-id {
       to: to,
       amount: amount,
@@ -24,6 +34,9 @@
     })
     (map-set has-approved {tx-id: tx-id, owner: tx-sender} true)
     (var-set tx-nonce tx-id)
+    
+    ;; Log event
+    (print {event: "proposal-fee", proposer: tx-sender, tx-id: tx-id, fee: proposal-fee})
     (ok tx-id)
   )
 )
@@ -58,4 +71,23 @@
 
 (define-read-only (get-transaction (tx-id uint))
   (ok (map-get? pending-transactions tx-id))
+)
+
+;; Get total fees collected
+(define-read-only (get-total-fees)
+  (ok (var-get total-fees-collected))
+)
+
+;; Withdraw fees (any owner can call)
+(define-public (withdraw-fees)
+  (let ((amount (var-get total-fees-collected)))
+    (asserts! (> amount u0) (err u300))
+    ;; Check if caller is one of the owners
+    (asserts! (or (is-eq tx-sender owner-1)
+                  (or (is-eq tx-sender (var-get owner-2))
+                      (is-eq tx-sender (var-get owner-3)))) (err u301))
+    (try! (as-contract (stx-transfer? amount tx-sender owner-1)))
+    (var-set total-fees-collected u0)
+    (ok amount)
+  )
 )

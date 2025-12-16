@@ -5,10 +5,16 @@ authors = []
 telemetry = false
 cache_dir = '.\.cache'
 requirements = []
+
 # [contracts.builder-rewards]
 # path = 'contracts/builder-rewards.clar'
 # clarity_version = 3
 # epoch = 'latest'
+
+[contracts.builder-rewards-v2]
+path = 'contracts/builder-rewards-v2.clar'
+clarity_version = 3
+epoch = 'latest'
 
 [contracts.stx-vault]
 path = 'contracts/stx-vault.clar'

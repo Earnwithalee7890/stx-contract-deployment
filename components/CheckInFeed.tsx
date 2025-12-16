@@ -17,7 +17,7 @@ export function CheckInFeed() {
         const fetchCheckIns = async () => {
             try {
                 const response = await fetch(
-                    'https://api.mainnet.hiro.so/extended/v1/tx?contract_address=SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT&contract_name=builder-rewards&function_name=daily-check-in&limit=10'
+                    'https://api.mainnet.hiro.so/extended/v1/tx?contract_address=SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT&contract_name=builder-rewards-v2&function_name=daily-check-in&limit=10'
                 );
                 const data = await response.json();
                 const successTxs = data.results.filter((tx: any) => tx.tx_status === 'success');
