@@ -5,6 +5,10 @@ deployments/**
 .cache/**
 history.txt
 
+# Environment variables with secrets - NEVER commit these!
+.env.local
+.env
+
 logs
 *.log
 npm-debug.log*
