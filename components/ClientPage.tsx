@@ -61,16 +61,52 @@ export default function ClientPage() {
             const { AnchorMode, PostConditionMode } = await import('@stacks/transactions');
 
             await openContractCall({
-                contractAddress: 'SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT',
-                contractName: 'builder-rewards-v2', // Updated to V2 contract with fees
+                contractAddress: 'SP2F506B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT',
+                contractName: 'builder-rewards-v3', // V3 with 0.1 STX fees
                 functionName: 'daily-check-in',
                 functionArgs: [],
                 network: 'mainnet',
                 anchorMode: AnchorMode.Any,
-                postConditionMode: PostConditionMode.Allow, // Allow 5 microSTX fee payment
+                postConditionMode: PostConditionMode.Allow, // Allow 0.1 STX fee payment
                 onFinish: (data) => {
-                    setMessage(`✅ Check-in successful! Fee paid: 5 microSTX | TX: ${data.txId}`);
+                    setMessage(`✅ Check-in successful! Fee paid: 0.1 STX | TX: ${data.txId}`);
                     setCheckInCount(prev => prev + 1);
+                    setLoading(false);
+                },
+                onCancel: () => {
+                    setMessage('❌ Transaction cancelled');
+                    setLoading(false);
+                },
+            });
+        } catch (error) {
+            setMessage(`❌ Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+            setLoading(false);
+        }
+    };
+
+    const handleClaimReward = async () => {
+        if (!userAddress) {
+            setMessage('❌ Please connect wallet first');
+            return;
+        }
+
+        setLoading(true);
+        setMessage('');
+
+        try {
+            const { openContractCall } = await import('@stacks/connect');
+            const { AnchorMode, PostConditionMode } = await import('@stacks/transactions');
+
+            await openContractCall({
+                contractAddress: 'SP2F506B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT',
+                contractName: 'builder-rewards-v3',
+                functionName: 'claim-daily-reward',
+                functionArgs: [],
+                network: 'mainnet',
+                anchorMode: AnchorMode.Any,
+                postConditionMode: PostConditionMode.Allow,
+                onFinish: (data) => {
+                    setMessage(`✅ Reward claimed! You got 0.1 STX! Fee paid: 0.1 STX | TX: ${data.txId}`);
                     setLoading(false);
                 },
                 onCancel: () => {
@@ -161,7 +197,15 @@ export default function ClientPage() {
                                         onClick={handleCheckIn}
                                         disabled={loading}
                                     >
-                                        {loading ? <span className="loading"></span> : '📝'} Daily Check-In
+                                        {loading ? <span className="loading"></span> : '📝'} Daily Check-In (0.1 STX)
+                                    </button>
+                                    <button
+                                        className="btn btn-primary"
+                                        onClick={handleClaimReward}
+                                        disabled={loading}
+                                        style={{ background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}
+                                    >
+                                        {loading ? <span className="loading"></span> : '🎁'} Claim Reward (Get 0.1 STX!)
                                     </button>
                                 </div>
                                 {message && (
