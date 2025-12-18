@@ -132,8 +132,11 @@ export default function ClientPage() {
 
     return (
         <div className="container">
-            <header style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                <h1>🎯 STX Builder Hub</h1>
+            <header style={{ textAlign: 'center', marginBottom: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.5rem' }}>
+                    <img src="/logo.png" alt="STX Builder Hub Logo" style={{ width: '40px', height: '40px', borderRadius: '8px' }} />
+                    <h1 style={{ margin: 0 }}>STX Builder Hub</h1>
+                </div>
                 <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem' }}>
                     Check-in daily, deploy contracts, and track activity
                 </p>
