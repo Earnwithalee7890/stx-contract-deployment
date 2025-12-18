@@ -13,11 +13,11 @@
 
 // Contract configuration
 const CONTRACT_ADDRESS = 'SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT';
-const CONTRACT_NAME = 'builder-rewards-v2';
+const CONTRACT_NAME = 'builder-rewards-v3';
 const NETWORK = 'mainnet';
 
 // Webhook endpoint (update with your deployment URL)
-const WEBHOOK_URL = process.env.NEXT_PUBLIC_WEBHOOK_URL || 'http://localhost:3000/api/chainhook';
+const WEBHOOK_URL = process.env.NEXT_PUBLIC_WEBHOOK_URL || 'https://stx-daily-check-in.vercel.app/api/chainhook';
 
 // Functions to monitor
 const MONITORED_FUNCTIONS = [
@@ -28,12 +28,12 @@ const MONITORED_FUNCTIONS = [
 
 async function registerChainhook() {
     try {
-        console.log('🔗 Registering Chainhook for Builder Rewards V2...\n');
+        console.log('🔗 Registering Chainhook for Builder Rewards V3...\n');
 
         // Define the chainhook (simplified format for Hiro Platform)
         const chainhookConfig = {
-            uuid: `builder-rewards-v2-${NETWORK}-${Date.now()}`,
-            name: `Builder Rewards V2 Activity Monitor (${NETWORK})`,
+            uuid: `builder-rewards-v3-${NETWORK}-${Date.now()}`,
+            name: `Builder Rewards V3 Activity Monitor (${NETWORK})`,
             version: 1,
             chain: 'stacks',
             networks: {
@@ -41,10 +41,9 @@ async function registerChainhook() {
                     // Monitor contract calls to our three main functions
                     if_this: {
                         scope: 'contract_call',
-                        contract_identifier: `${CONTRACT_ADDRESS}.${CONTRACT_NAME}`,
-                        method: MONITORED_FUNCTIONS
+                        method: MONITORED_FUNCTIONS,
+                        contract_identifier: `${CONTRACT_ADDRESS}.${CONTRACT_NAME}`
                     },
-                    // Send events to our webhook
                     then_that: {
                         http_post: {
                             url: WEBHOOK_URL,

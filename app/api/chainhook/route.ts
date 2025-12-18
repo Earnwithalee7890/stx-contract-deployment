@@ -2,7 +2,7 @@
  * Chainhook Webhook Endpoint
  * 
  * This API route receives POST requests from Hiro Chainhooks when
- * users interact with the builder-rewards-v2 contract.
+ * users interact with the builder-rewards-v3 contract.
  * 
  * Week 2 Requirement: Event processing for on-chain activity tracking.
  */
@@ -160,7 +160,7 @@ export async function GET() {
             lastEventTime: eventStats.lastEventTime,
             recentEvents: eventStats.recentEvents.slice(0, 5)
         },
-        contract: 'SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT.builder-rewards-v2',
+        contract: 'SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT.builder-rewards-v3',
         network: 'mainnet'
     });
 }

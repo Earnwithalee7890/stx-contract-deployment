@@ -1,0 +1,24 @@
+{
+    "name": "Builder Rewards V3",
+    "chain": "stacks",
+    "version": 1,
+    "networks": {
+        "mainnet": {
+            "if_this": {
+                "scope": "contract_call",
+                "method": "daily-check-in",
+                "contract_identifier": "SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT.builder-rewards-v3"
+            },
+            "end_block": null,
+            "then_that": {
+                "http_post": {
+                    "url": "https://stx-daily-check-in.vercel.app/api/chainhook",
+                    "authorization_header": ""
+                }
+            },
+            "start_block": 5354359,
+            "decode_clarity_values": true,
+            "expire_after_occurrence": null
+        }
+    }
+}
