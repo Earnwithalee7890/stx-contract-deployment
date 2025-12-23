@@ -21,7 +21,7 @@ import SocialLinks from './SocialLinks';
  * The main client-side entry point for the STX Builder Hub.
  * Manages wallet connection, navigation, and core dashboard actions.
  * 
- * Week 2: Integrated Hiro branding and real-time status tracking.
+ * Week 3: Migrated to WalletKit SDK for Week 3 tracking compliance.
  */
 export default function ClientPage() {
     /** The authenticated user's Stacks address */
