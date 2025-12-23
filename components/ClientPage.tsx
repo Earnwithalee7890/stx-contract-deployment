@@ -163,6 +163,121 @@ export default function ClientPage() {
                 </div>
             </header>
 
+            {/* Week 3 Builder Challenge Section */}
+            <div className="glass-card" style={{ marginBottom: '2rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+                    <span style={{
+                        background: 'linear-gradient(135deg, #ff4b4b 0%, #ff8c42 100%)',
+                        padding: '0.5rem 1rem',
+                        borderRadius: '8px',
+                        fontSize: '0.85rem',
+                        fontWeight: 'bold',
+                        color: 'white',
+                        boxShadow: '0 4px 12px rgba(255, 75, 75, 0.3)'
+                    }}>
+                        🏆 STACKS BUILDER WEEK 3
+                    </span>
+                </div>
+
+                <h2 style={{ marginTop: '1rem', marginBottom: '1rem', fontSize: '1.3rem' }}>🧱 Built on Stacks</h2>
+
+                <div style={{ textAlign: 'left', color: 'var(--text-muted)', lineHeight: '1.8' }}>
+                    <p style={{ marginBottom: '1rem' }}>
+                        This platform is built during the Stacks Builder Challenge, demonstrating real Stacks mainnet integration with Clarity smart contracts and Hiro Chainhooks.
+                    </p>
+
+                    <h3 style={{ fontSize: '1rem', marginTop: '1.5rem', marginBottom: '0.8rem', color: 'white' }}>✅ What's Built:</h3>
+                    <ul style={{ paddingLeft: '1.5rem', marginBottom: '1.5rem' }}>
+                        <li><strong>75 Clarity Smart Contracts</strong> deployed to Stacks mainnet</li>
+                        <li><strong>Hiro Chainhooks Integration</strong> monitoring builder-rewards-v3 contract in real-time</li>
+                        <li><strong>Mainnet Check-In System</strong> with fee collection (0.1 STX)</li>
+                        <li><strong>Wallet Connection</strong> using Stacks Connect & Leather Wallet</li>
+                        <li><strong>Contract Deployer Tool</strong> for standard and NFT contracts</li>
+                        <li><strong>Live Activity Feed</strong> tracking on-chain events</li>
+                    </ul>
+
+                    <h3 style={{ fontSize: '1rem', marginTop: '1.5rem', marginBottom: '0.8rem', color: 'white' }}>🔗 Proof of Work:</h3>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem', marginBottom: '1rem' }}>
+                        <a
+                            href="https://github.com/Earnwithalee7890/stx-daily-check-in"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                padding: '0.5rem 1rem',
+                                background: 'rgba(255, 255, 255, 0.1)',
+                                borderRadius: '6px',
+                                textDecoration: 'none',
+                                color: '#10b981',
+                                border: '1px solid rgba(16, 185, 129, 0.3)',
+                                fontSize: '0.9rem',
+                                transition: 'all 0.3s ease'
+                            }}
+                        >
+                            📂 GitHub Repository
+                        </a>
+                        <a
+                            href="https://explorer.hiro.so/address/SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT?chain=mainnet"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                padding: '0.5rem 1rem',
+                                background: 'rgba(255, 255, 255, 0.1)',
+                                borderRadius: '6px',
+                                textDecoration: 'none',
+                                color: '#ff4b4b',
+                                border: '1px solid rgba(255, 75, 75, 0.3)',
+                                fontSize: '0.9rem',
+                                transition: 'all 0.3s ease'
+                            }}
+                        >
+                            🔍 Deployed Contracts
+                        </a>
+                        <a
+                            href="https://github.com/Earnwithalee7890/stx-daily-check-in/blob/main/chainhooks/builder-rewards-v3.json"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                padding: '0.5rem 1rem',
+                                background: 'rgba(255, 255, 255, 0.1)',
+                                borderRadius: '6px',
+                                textDecoration: 'none',
+                                color: '#fbbf24',
+                                border: '1px solid rgba(251, 191, 36, 0.3)',
+                                fontSize: '0.9rem',
+                                transition: 'all 0.3s ease'
+                            }}
+                        >
+                            🪝 Chainhook Config
+                        </a>
+                    </div>
+
+                    <h3 style={{ fontSize: '1rem', marginTop: '1.5rem', marginBottom: '0.8rem', color: 'white' }}>📝 Build Log:</h3>
+                    <div style={{
+                        background: 'rgba(0, 0, 0, 0.3)',
+                        padding: '1rem',
+                        borderRadius: '8px',
+                        borderLeft: '3px solid #ff4b4b',
+                        fontFamily: 'monospace',
+                        fontSize: '0.85rem'
+                    }}>
+                        <div style={{ marginBottom: '0.5rem' }}>✅ Week 1: Deployed 75 Clarity contracts to mainnet</div>
+                        <div style={{ marginBottom: '0.5rem' }}>✅ Week 2: Integrated Hiro Chainhooks for real-time monitoring</div>
+                        <div style={{ marginBottom: '0.5rem' }}>✅ Week 2: Built check-in system with fee collection mechanism</div>
+                        <div style={{ marginBottom: '0.5rem' }}>✅ Week 3: Added contract deployer with NFT minting capability</div>
+                        <div>✅ Week 3: Implemented live activity feed and wallet integration</div>
+                    </div>
+                </div>
+            </div>
+
             {/* Connection & Navigation */}
             <div className="glass-card" style={{ marginBottom: '2rem', textAlign: 'center' }}>
                 {!userAddress ? (
@@ -264,7 +379,7 @@ export default function ClientPage() {
             <SocialLinks />
 
             <footer style={{ textAlign: 'center', marginTop: '2rem', paddingTop: '2rem', color: 'var(--text-muted)' }}>
-                <p>Built for Stacks Builder Challenge Week 2 🏆 | Powered by <a href="https://hiro.so/chainhooks" target="_blank" rel="noopener noreferrer" style={{ color: '#ff4b4b', textDecoration: 'none', fontWeight: 'bold' }}>Hiro Chainhooks</a></p>
+                <p>Built for Stacks Builder Challenge Week 3 🏆 | Powered by <a href="https://hiro.so/chainhooks" target="_blank" rel="noopener noreferrer" style={{ color: '#ff4b4b', textDecoration: 'none', fontWeight: 'bold' }}>Hiro Chainhooks</a></p>
             </footer>
         </div>
     );
