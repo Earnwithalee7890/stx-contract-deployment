@@ -18,6 +18,8 @@
   "dependencies": {
     "@hirosystems/chainhooks-client": "^1.0.0",
     "@hirosystems/clarinet-sdk": "^3.6.0",
+    "@reown/appkit": "^1.8.15",
+    "@reown/appkit-adapter-wagmi": "^1.8.15",
     "@stacks/connect": "^8.2.3",
     "@stacks/network": "^7.2.0",
     "@stacks/stacks-blockchain-api-types": "^7.14.1",

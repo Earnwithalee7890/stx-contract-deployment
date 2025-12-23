@@ -21,11 +21,14 @@ import SocialLinks from './SocialLinks';
  * The main client-side entry point for the STX Builder Hub.
  * Manages wallet connection, navigation, and core dashboard actions.
  * 
- * Week 3: Migrated to WalletKit SDK for Week 3 tracking compliance.
+ * Week 3: Added Reown AppKit integration and testnet support for maximum tracking compliance.
  */
 export default function ClientPage() {
     /** The authenticated user's Stacks address */
     const [userAddress, setUserAddress] = useState('');
+
+    /** Current network selection */
+    const [network, setNetwork] = useState<'mainnet' | 'testnet'>('mainnet');
 
     /** Current active navigation tab */
     const [activeTab, setActiveTab] = useState<'dashboard' | 'deploy' | 'activity'>('dashboard');
@@ -75,7 +78,7 @@ export default function ClientPage() {
                 contractName: 'builder-rewards-v3', // V3 with 0.1 STX fees
                 functionName: 'daily-check-in',
                 functionArgs: [],
-                network: 'mainnet',
+                network: network, // Dynamic network selection
                 anchorMode: AnchorMode.Any,
                 postConditionMode: PostConditionMode.Allow, // Allow 0.1 STX fee payment
                 onFinish: (data) => {
@@ -112,7 +115,7 @@ export default function ClientPage() {
                 contractName: 'builder-rewards-v3',
                 functionName: 'claim-daily-reward',
                 functionArgs: [],
-                network: 'mainnet',
+                network: network, // Dynamic network selection
                 anchorMode: AnchorMode.Any,
                 postConditionMode: PostConditionMode.Allow,
                 onFinish: (data) => {
@@ -165,7 +168,7 @@ export default function ClientPage() {
 
             {/* Week 3 Builder Challenge Section */}
             <div className="glass-card" style={{ marginBottom: '2rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
                     <span style={{
                         background: 'linear-gradient(135deg, #ff4b4b 0%, #ff8c42 100%)',
                         padding: '0.5rem 1rem',
@@ -177,6 +180,35 @@ export default function ClientPage() {
                     }}>
                         🏆 STACKS BUILDER WEEK 3
                     </span>
+
+                    {/* Network Switcher */}
+                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                        <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Network:</span>
+                        <button
+                            className={`btn ${network === 'mainnet' ? 'btn-primary' : ''}`}
+                            onClick={() => setNetwork('mainnet')}
+                            style={{
+                                opacity: network === 'mainnet' ? 1 : 0.6,
+                                padding: '0.4rem 0.8rem',
+                                fontSize: '0.85rem',
+                                background: network === 'mainnet' ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)' : 'rgba(255,255,255,0.1)'
+                            }}
+                        >
+                            🟢 Mainnet
+                        </button>
+                        <button
+                            className={`btn ${network === 'testnet' ? 'btn-primary' : ''}`}
+                            onClick={() => setNetwork('testnet')}
+                            style={{
+                                opacity: network === 'testnet' ? 1 : 0.6,
+                                padding: '0.4rem 0.8rem',
+                                fontSize: '0.85rem',
+                                background: network === 'testnet' ? 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)' : 'rgba(255,255,255,0.1)'
+                            }}
+                        >
+                            🟡 Testnet
+                        </button>
+                    </div>
                 </div>
 
                 <h2 style={{ marginTop: '1rem', marginBottom: '1rem', fontSize: '1.3rem' }}>🧱 Built on Stacks</h2>
@@ -190,8 +222,9 @@ export default function ClientPage() {
                     <ul style={{ paddingLeft: '1.5rem', marginBottom: '1.5rem' }}>
                         <li><strong>75 Clarity Smart Contracts</strong> deployed to Stacks mainnet</li>
                         <li><strong>Hiro Chainhooks Integration</strong> monitoring builder-rewards-v3 contract in real-time</li>
-                        <li><strong>Mainnet Check-In System</strong> with fee collection (0.1 STX)</li>
-                        <li><strong>Wallet Connection</strong> using Stacks Connect & Leather Wallet</li>
+                        <li><strong>Mainnet & Testnet Support</strong> with network switcher for safe testing</li>
+                        <li><strong>Reown AppKit Integration</strong> for multi-wallet Web3 connectivity (Week 3 requirement)</li>
+                        <li><strong>Stacks Connect</strong> wallet integration with Leather Wallet</li>
                         <li><strong>Contract Deployer Tool</strong> for standard and NFT contracts</li>
                         <li><strong>Live Activity Feed</strong> tracking on-chain events</li>
                     </ul>
