@@ -147,9 +147,9 @@ export default function ClientPage() {
             const { openContractCall } = await import('@stacks/connect');
             const { AnchorMode, PostConditionMode } = await import('@stacks/transactions');
 
-            // TODO: Replace with your actual deployed contract address
+            // Deployed contract address
             const BADGE_CONTRACT_ADDRESS = 'SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT';
-            const BADGE_CONTRACT_NAME = 'weekly-badges';
+            const BADGE_CONTRACT_NAME = 'weekly-rewards'; // Deployed as weekly-rewards
 
             await openContractCall({
                 contractAddress: BADGE_CONTRACT_ADDRESS,
