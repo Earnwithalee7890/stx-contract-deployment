@@ -20,6 +20,7 @@
 - **GitHub Repository**: [stx-daily-check-in](https://github.com/Earnwithalee7890/stx-daily-check-in)
 - **Deployed Contracts**: [SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT](https://explorer.hiro.so/address/SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT?chain=mainnet)
 - **Main Contract**: [builder-rewards-v3](https://explorer.hiro.so/txid/SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT.builder-rewards-v3?chain=mainnet)
+- **Digital Notary**: [SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT.digital-notary](https://explorer.hiro.so/txid/SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT.digital-notary?chain=mainnet)
 - **Chainhook Config**: [builder-rewards-v3.json](./chainhooks/builder-rewards-v3.json)
 
 ✅ **Public Progress**
