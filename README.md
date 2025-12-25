@@ -38,15 +38,31 @@
 
 ![STX Builder Hub](https://i.imgur.com/example-screenshot.png)
 
-## ✨ Features
+## ✨ Featured Projects & Technical Focus
 
-- **📝 Daily Check-In:** Earn points and rewards by checking in daily on the Stacks mainnet.
-- **🛠️ Contract Deployer:** 
-  - **Standard Mode:** Write and deploy custom Clarity contracts directly from your browser.
-  - **NFT Creator:** Generate and deploy SIP-009 NFT contracts instantly without writing code.
-- **💸 Revenue Share:** A 0.05 STX service fee is automatically applied to all deployments, supporting the platform.
-- **👀 Live Activity Feed:** Watch real-time check-ins from the community.
-- **💎 Premium Design:** Experience a state-of-the-art Glassmorphism UI with animated mesh gradients and smooth interactions.
+### 🏛️ Decentralized Digital Notary (Stacks)
+- Built a **fully on-chain document notarization dApp** providing cryptographic proof of existence.
+- Features integrity verification for digital files and secure Intellectual Property (IP) transfer logic.
+
+### 💸 Salary Streamer & Payroll (Stacks)
+- Developed a **decentralized payroll application** enabling real-time salary streaming.
+- Implements block-based vesting schedules for automated, trustless fund distribution.
+
+### 💼 Decentralized Job Board (Stacks)
+- Created an end-to-end **freelance marketplace** for global job postings and high-integrity hiring.
+- Integrates automated milestone payments and employer-freelancer escrow mechanics.
+
+### 🖼️ SIP-009 Premium NFT Infrastructure (Stacks)
+- Engineered an **advanced NFT Minting protocol** with metadata management and URI locking.
+- Focuses on SIP-009 standard compliance and collection scalability.
+
+### 🎖️ On-chain Reputation & Referral System (Stacks)
+- Developed a multi-tier **referral and rewards engine** to drive ecosystem growth.
+- Features automated streak tracking and reputation-based reward multipliers.
+
+### 📊 Real-time Builder Analytics Dashboard
+- Integrated **Hiro Chainhooks** for a live contributor analytics dashboard.
+- Monitors on-chain contract interactions and protocol fee generation in real-time.
 
 ## 🚀 Getting Started
 
