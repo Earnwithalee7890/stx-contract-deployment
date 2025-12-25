@@ -66,7 +66,7 @@ export function BadgesPage() {
 
             await openContractCall({
                 contractAddress: 'SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT',
-                contractName: 'weekly-rewards', // Deployed contract name
+                contractName: 'weekly-rewards-v2', // Upgraded V2 with bug fix
                 functionName: 'earn-badge',
                 functionArgs: [],
                 network: 'mainnet',

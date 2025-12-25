@@ -2,7 +2,7 @@
 ;; Featuring Clarity 4 standards and metadata management
 ;; Built for Stacks Builder Challenge Week 3
 
-(impl-trait .sip009-nft-trait.sip009-nft-trait)
+;; (impl-trait .sip009-nft-trait.sip009-nft-trait)
 
 (define-non-fungible-token builder-nft uint)
 

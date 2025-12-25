@@ -147,9 +147,8 @@ export default function ClientPage() {
             const { openContractCall } = await import('@stacks/connect');
             const { AnchorMode, PostConditionMode } = await import('@stacks/transactions');
 
-            // Deployed contract address
             const BADGE_CONTRACT_ADDRESS = 'SP2F500B8DTRK1EANJQ054BRAB8DDKN6QCMXGNFBT';
-            const BADGE_CONTRACT_NAME = 'weekly-rewards'; // Deployed as weekly-rewards
+            const BADGE_CONTRACT_NAME = 'weekly-rewards-v2'; // Upgraded V2 with bug fix
 
             await openContractCall({
                 contractAddress: BADGE_CONTRACT_ADDRESS,
