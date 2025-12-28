@@ -282,7 +282,7 @@ export default function ClientPage() {
             <div className="glass-card" style={{ marginBottom: '2rem', textAlign: 'center' }}>
                 {!userAddress ? (
                     <button className="btn btn-primary" onClick={handleConnect}>
-                        🔗 Connect Leather Wallet
+                        🦊 Connect Leather Wallet
                     </button>
                 ) : (
                     <div>
