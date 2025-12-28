@@ -138,30 +138,36 @@ export default function ClientPage() {
         <div className="container">
             <header className="sticky-header">
                 <div className="nav-group">
-                    <img src="/logo.png" alt="Logo" style={{ width: '32px', height: '32px', borderRadius: '6px' }} />
-                    <button className={`nav-btn ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => setActiveTab('dashboard')}>📊 Dashboard</button>
-                    <button className={`nav-btn ${activeTab === 'jobs' ? 'active' : ''}`} onClick={() => setActiveTab('jobs')}>💼 Jobs</button>
-                    <button className={`nav-btn ${activeTab === 'governance' ? 'active' : ''}`} onClick={() => setActiveTab('governance')}>🏛️ DAO</button>
-                    <button className={`nav-btn ${activeTab === 'explorer' ? 'active' : ''}`} onClick={() => setActiveTab('explorer')}>📜 Code</button>
-                    <button className={`nav-btn ${activeTab === 'badges' ? 'active' : ''}`} onClick={() => setActiveTab('badges')}>🏆 Badges</button>
-                    <button className={`nav-btn ${activeTab === 'deploy' ? 'active' : ''}`} onClick={() => setActiveTab('deploy')}>🛠️ Deploy</button>
-                    <button className={`nav-btn ${activeTab === 'activity' ? 'active' : ''}`} onClick={() => setActiveTab('activity')}>👀 Activity</button>
+                    <div style={{ position: 'relative', display: 'flex', alignItems: 'center', marginRight: '1rem' }}>
+                        <img src="/logo.png" alt="Logo" style={{ width: '32px', height: '32px', borderRadius: '8px', zIndex: 2 }} />
+                        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'var(--primary)', filter: 'blur(15px)', opacity: 0.3, zIndex: 1 }}></div>
+                    </div>
+                    <button className={`nav-btn ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => { setActiveTab('dashboard'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>📊 Dashboard</button>
+                    <button className={`nav-btn ${activeTab === 'jobs' ? 'active' : ''}`} onClick={() => { setActiveTab('jobs'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>💼 Jobs</button>
+                    <button className={`nav-btn ${activeTab === 'governance' ? 'active' : ''}`} onClick={() => { setActiveTab('governance'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>🏛️ DAO</button>
+                    <button className={`nav-btn ${activeTab === 'explorer' ? 'active' : ''}`} onClick={() => { setActiveTab('explorer'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>📜 Code</button>
+                    <button className={`nav-btn ${activeTab === 'badges' ? 'active' : ''}`} onClick={() => { setActiveTab('badges'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>🏆 Badges</button>
+                    <button className={`nav-btn ${activeTab === 'deploy' ? 'active' : ''}`} onClick={() => { setActiveTab('deploy'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>🛠️ Deploy</button>
+                    <button className={`nav-btn ${activeTab === 'activity' ? 'active' : ''}`} onClick={() => { setActiveTab('activity'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>👀 Activity</button>
                 </div>
 
                 <div className="nav-group">
                     {!userAddress ? (
-                        <button className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }} onClick={handleConnect}>
+                        <button className="btn btn-primary" style={{ padding: '0.6rem 1.2rem', fontSize: '0.85rem', fontWeight: 'bold' }} onClick={handleConnect}>
                             🦊 Connect Wallet
                         </button>
                     ) : (
-                        <div className="wallet-status">
-                            <span style={{ fontFamily: 'monospace', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                                {userAddress.slice(0, 6)}...{userAddress.slice(-4)}
-                            </span>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#10b981', fontSize: '0.75rem', fontWeight: 'bold' }}>
+                        <div className="wallet-status" title={userAddress}>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                                <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1 }}>Wallet</span>
+                                <span style={{ fontFamily: 'monospace', fontSize: '0.85rem', color: 'white', fontWeight: 'bold' }}>
+                                    {userAddress.slice(0, 4)}...{userAddress.slice(-4)}
+                                </span>
+                            </div>
+                            <div style={{ padding: '4px 8px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                                 <span className="pulse-dot" style={{ width: '6px', height: '6px', background: '#10b981', borderRadius: '50%' }}></span>
-                                Connected
-                            </span>
+                                <span style={{ color: '#10b981', fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase' }}>Active</span>
+                            </div>
                         </div>
                     )}
                 </div>
