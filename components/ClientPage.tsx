@@ -136,14 +136,40 @@ export default function ClientPage() {
 
     return (
         <div className="container">
-            <header style={{ textAlign: 'center', marginBottom: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.5rem' }}>
-                    <img src="/logo.png" alt="STX Builder Hub Logo" style={{ width: '40px', height: '40px', borderRadius: '8px' }} />
-                    <h1 style={{ margin: 0 }}>STX Builder Hub</h1>
+            <header className="sticky-header">
+                <div className="nav-group">
+                    <img src="/logo.png" alt="Logo" style={{ width: '32px', height: '32px', borderRadius: '6px' }} />
+                    <button className={`nav-btn ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => setActiveTab('dashboard')}>📊 Dashboard</button>
+                    <button className={`nav-btn ${activeTab === 'jobs' ? 'active' : ''}`} onClick={() => setActiveTab('jobs')}>💼 Jobs</button>
+                    <button className={`nav-btn ${activeTab === 'governance' ? 'active' : ''}`} onClick={() => setActiveTab('governance')}>🏛️ DAO</button>
+                    <button className={`nav-btn ${activeTab === 'explorer' ? 'active' : ''}`} onClick={() => setActiveTab('explorer')}>📜 Code</button>
+                    <button className={`nav-btn ${activeTab === 'badges' ? 'active' : ''}`} onClick={() => setActiveTab('badges')}>🏆 Badges</button>
+                    <button className={`nav-btn ${activeTab === 'deploy' ? 'active' : ''}`} onClick={() => setActiveTab('deploy')}>🛠️ Deploy</button>
+                    <button className={`nav-btn ${activeTab === 'activity' ? 'active' : ''}`} onClick={() => setActiveTab('activity')}>👀 Activity</button>
                 </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem' }}>
-                    Check-in daily, deploy contracts, and track activity
-                </p>
+
+                <div className="nav-group">
+                    {!userAddress ? (
+                        <button className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }} onClick={handleConnect}>
+                            🦊 Connect Wallet
+                        </button>
+                    ) : (
+                        <div className="wallet-status">
+                            <span style={{ fontFamily: 'monospace', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                                {userAddress.slice(0, 6)}...{userAddress.slice(-4)}
+                            </span>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#10b981', fontSize: '0.75rem', fontWeight: 'bold' }}>
+                                <span className="pulse-dot" style={{ width: '6px', height: '6px', background: '#10b981', borderRadius: '50%' }}></span>
+                                Connected
+                            </span>
+                        </div>
+                    )}
+                </div>
+            </header>
+
+            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                <h1 style={{ fontSize: '2.5rem' }}>STX Builder Hub</h1>
+                <p style={{ color: 'var(--text-muted)' }}>Check-in daily, deploy contracts, and track activity</p>
                 <div style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -152,20 +178,14 @@ export default function ClientPage() {
                     padding: '0.3rem 0.8rem',
                     borderRadius: '20px',
                     border: '1px solid rgba(255, 75, 75, 0.2)',
-                    fontSize: '0.85rem',
+                    fontSize: '0.8rem',
                     color: '#ff4b4b',
-                    marginTop: '0.5rem'
+                    marginTop: '1rem'
                 }}>
-                    <span className="pulse-dot" style={{
-                        width: '8px',
-                        height: '8px',
-                        background: '#ff4b4b',
-                        borderRadius: '50%',
-                        boxShadow: '0 0 8px #ff4b4b'
-                    }}></span>
+                    <span className="pulse-dot" style={{ width: '6px', height: '6px', background: '#ff4b4b', borderRadius: '50%' }}></span>
                     Hiro Chainhook: ACTIVE (v3)
                 </div>
-            </header>
+            </div>
 
             {/* Week 3 Builder Challenge Section */}
             <div className="glass-card" style={{ marginBottom: '2rem' }}>
@@ -282,73 +302,7 @@ export default function ClientPage() {
                 </div>
             </div>
 
-            {/* Connection & Navigation */}
-            <div className="glass-card" style={{ marginBottom: '2rem', textAlign: 'center' }}>
-                {!userAddress ? (
-                    <button className="btn btn-primary" onClick={handleConnect}>
-                        🦊 Connect Leather Wallet
-                    </button>
-                ) : (
-                    <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                            <span style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>{userAddress}</span>
-                            <span style={{ color: '#10b981' }}>● Connected</span>
-                        </div>
 
-                        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-                            <button
-                                className={`btn ${activeTab === 'dashboard' ? 'btn-primary' : ''}`}
-                                onClick={() => setActiveTab('dashboard')}
-                                style={{ opacity: activeTab === 'dashboard' ? 1 : 0.6 }}
-                            >
-                                📊 Dashboard
-                            </button>
-                            <button
-                                className={`btn ${activeTab === 'deploy' ? 'btn-primary' : ''}`}
-                                onClick={() => setActiveTab('deploy')}
-                                style={{ opacity: activeTab === 'deploy' ? 1 : 0.6 }}
-                            >
-                                🛠️ Deployer
-                            </button>
-                            <button
-                                className={`btn ${activeTab === 'activity' ? 'btn-primary' : ''}`}
-                                onClick={() => setActiveTab('activity')}
-                                style={{ opacity: activeTab === 'activity' ? 1 : 0.6 }}
-                            >
-                                👀 Activity
-                            </button>
-                            <button
-                                className={`btn ${activeTab === 'jobs' ? 'btn-primary' : ''}`}
-                                onClick={() => setActiveTab('jobs')}
-                                style={{ opacity: activeTab === 'jobs' ? 1 : 0.6, fontSize: '0.85rem' }}
-                            >
-                                💼 Jobs
-                            </button>
-                            <button
-                                className={`btn ${activeTab === 'governance' ? 'btn-primary' : ''}`}
-                                onClick={() => setActiveTab('governance')}
-                                style={{ opacity: activeTab === 'governance' ? 1 : 0.6, fontSize: '0.85rem' }}
-                            >
-                                🏛️ DAO
-                            </button>
-                            <button
-                                className={`btn ${activeTab === 'explorer' ? 'btn-primary' : ''}`}
-                                onClick={() => setActiveTab('explorer')}
-                                style={{ opacity: activeTab === 'explorer' ? 1 : 0.6, fontSize: '0.85rem' }}
-                            >
-                                📜 Code
-                            </button>
-                            <button
-                                className={`btn ${activeTab === 'badges' ? 'btn-primary' : ''}`}
-                                onClick={() => setActiveTab('badges')}
-                                style={{ opacity: activeTab === 'badges' ? 1 : 0.6, fontSize: '0.85rem' }}
-                            >
-                                🏆 Badges
-                            </button>
-                        </div>
-                    </div>
-                )}
-            </div>
 
             {userAddress && (
                 <>
