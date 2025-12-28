@@ -16,6 +16,9 @@ import { useState, useCallback } from 'react';
 import { CheckInFeed } from './CheckInFeed';
 import { ContractDeployer } from './ContractDeployer';
 import { JobBoard } from './JobBoard';
+import { Governance } from './Governance';
+import { AchievementBadges } from './AchievementBadges';
+import { CodeExplorer } from './CodeExplorer';
 import SocialLinks from './SocialLinks';
 
 /**
@@ -29,7 +32,7 @@ export default function ClientPage() {
     const [userAddress, setUserAddress] = useState('');
 
     /** Current active navigation tab */
-    const [activeTab, setActiveTab] = useState<'dashboard' | 'deploy' | 'activity' | 'jobs'>('dashboard');
+    const [activeTab, setActiveTab] = useState<'dashboard' | 'deploy' | 'activity' | 'jobs' | 'governance' | 'badges' | 'explorer'>('dashboard');
 
     // Dashboard state
     /** Total number of successful check-ins detected locally */
@@ -317,9 +320,30 @@ export default function ClientPage() {
                             <button
                                 className={`btn ${activeTab === 'jobs' ? 'btn-primary' : ''}`}
                                 onClick={() => setActiveTab('jobs')}
-                                style={{ opacity: activeTab === 'jobs' ? 1 : 0.6 }}
+                                style={{ opacity: activeTab === 'jobs' ? 1 : 0.6, fontSize: '0.85rem' }}
                             >
                                 💼 Jobs
+                            </button>
+                            <button
+                                className={`btn ${activeTab === 'governance' ? 'btn-primary' : ''}`}
+                                onClick={() => setActiveTab('governance')}
+                                style={{ opacity: activeTab === 'governance' ? 1 : 0.6, fontSize: '0.85rem' }}
+                            >
+                                🏛️ DAO
+                            </button>
+                            <button
+                                className={`btn ${activeTab === 'explorer' ? 'btn-primary' : ''}`}
+                                onClick={() => setActiveTab('explorer')}
+                                style={{ opacity: activeTab === 'explorer' ? 1 : 0.6, fontSize: '0.85rem' }}
+                            >
+                                📜 Code
+                            </button>
+                            <button
+                                className={`btn ${activeTab === 'badges' ? 'btn-primary' : ''}`}
+                                onClick={() => setActiveTab('badges')}
+                                style={{ opacity: activeTab === 'badges' ? 1 : 0.6, fontSize: '0.85rem' }}
+                            >
+                                🏆 Badges
                             </button>
                         </div>
                     </div>
@@ -349,6 +373,18 @@ export default function ClientPage() {
                                     <h2>⚡ Network Pulse</h2>
                                     <div className="stat-value">98/100</div>
                                     <div className="stat-label">Live Builder Score</div>
+                                </div>
+                            </div>
+
+                            <div className="glass-card" style={{ marginTop: '2rem', background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%)', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                    <span style={{ fontSize: '1.5rem' }}>🤖</span>
+                                    <div>
+                                        <h3 style={{ fontSize: '1.1rem', color: 'white' }}>AI Builder Insights</h3>
+                                        <p style={{ fontSize: '0.9rem', color: '#93c5fd', margin: 0 }}>
+                                            Tip: Your check-in frequency is in the top 5%. Consider proposing a DAO reward increase to benefit other active builders!
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
 
@@ -387,6 +423,12 @@ export default function ClientPage() {
                     {activeTab === 'activity' && <div className="content-animate"><CheckInFeed /></div>}
 
                     {activeTab === 'jobs' && <div className="content-animate"><JobBoard userAddress={userAddress} setMessage={setMessage} /></div>}
+
+                    {activeTab === 'governance' && <div className="content-animate"><Governance userAddress={userAddress} setMessage={setMessage} /></div>}
+
+                    {activeTab === 'explorer' && <div className="content-animate"><CodeExplorer /></div>}
+
+                    {activeTab === 'badges' && <div className="content-animate"><AchievementBadges /></div>}
                 </>
             )}
 
