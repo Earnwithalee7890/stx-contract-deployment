@@ -20,6 +20,9 @@ import { Governance } from './Governance';
 import { AchievementBadges } from './AchievementBadges';
 import { CodeExplorer } from './CodeExplorer';
 import SocialLinks from './SocialLinks';
+import ReferralDashboard from './ReferralDashboard';
+import BadgeMinter from './BadgeMinter';
+import { useEffect } from 'react';
 
 /**
  * The main client-side entry point for the STX Builder Hub.
@@ -32,13 +35,23 @@ export default function ClientPage() {
     const [userAddress, setUserAddress] = useState('');
 
     /** Current active navigation tab */
-    const [activeTab, setActiveTab] = useState<'dashboard' | 'deploy' | 'activity' | 'jobs' | 'governance' | 'badges' | 'explorer'>('dashboard');
+    const [activeTab, setActiveTab] = useState<'dashboard' | 'deploy' | 'activity' | 'jobs' | 'governance' | 'badges' | 'explorer' | 'referrals' | 'nft-badges'>('dashboard');
 
     // Dashboard state
     /** Total number of successful check-ins detected locally */
     const [checkInCount, setCheckInCount] = useState(0);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
+
+    useEffect(() => {
+        // Detect referral in URL
+        const params = new URLSearchParams(window.location.search);
+        const ref = params.get('ref');
+        if (ref) {
+            localStorage.setItem('referral_code', ref);
+            console.log('Referral detected:', ref);
+        }
+    }, []);
 
     const handleConnect = useCallback(async () => {
         if (typeof window === 'undefined') return;
@@ -147,6 +160,8 @@ export default function ClientPage() {
                     <button className={`nav-btn ${activeTab === 'governance' ? 'active' : ''}`} onClick={() => { setActiveTab('governance'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>🏛️ DAO</button>
                     <button className={`nav-btn ${activeTab === 'explorer' ? 'active' : ''}`} onClick={() => { setActiveTab('explorer'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>📜 Code</button>
                     <button className={`nav-btn ${activeTab === 'badges' ? 'active' : ''}`} onClick={() => { setActiveTab('badges'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>🏆 Badges</button>
+                    <button className={`nav-btn ${activeTab === 'referrals' ? 'active' : ''}`} onClick={() => { setActiveTab('referrals'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>🤝 Referrals</button>
+                    <button className={`nav-btn ${activeTab === 'nft-badges' ? 'active' : ''}`} onClick={() => { setActiveTab('nft-badges'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>🏅 NFT</button>
                     <button className={`nav-btn ${activeTab === 'deploy' ? 'active' : ''}`} onClick={() => { setActiveTab('deploy'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>🛠️ Deploy</button>
                     <button className={`nav-btn ${activeTab === 'activity' ? 'active' : ''}`} onClick={() => { setActiveTab('activity'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>👀 Activity</button>
                 </div>
@@ -389,6 +404,10 @@ export default function ClientPage() {
                     {activeTab === 'explorer' && <div className="content-animate"><CodeExplorer /></div>}
 
                     {activeTab === 'badges' && <div className="content-animate"><AchievementBadges /></div>}
+
+                    {activeTab === 'referrals' && <div className="content-animate"><ReferralDashboard /></div>}
+
+                    {activeTab === 'nft-badges' && <div className="content-animate"><BadgeMinter /></div>}
                 </>
             )}
 

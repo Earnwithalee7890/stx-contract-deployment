@@ -12,6 +12,10 @@
 (define-constant err-invalid-amount (err u103))
 (define-constant err-contract-inactive (err u104))
 (define-constant err-insufficient-fee (err u105))
+(define-constant err-referral-failed (err u106))
+
+;; Referral Contract (Self-deployed addr)
+(define-constant referral-contract 'SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9)
 
 ;; Fee constants (in microSTX)
 (define-constant app-fee-check-in u100000)      ;; 0.1 STX per check-in
@@ -75,8 +79,14 @@
     })
     
     ;; Add current day to check-ins
-    (ok (map-set daily-check-ins caller 
-      (unwrap-panic (as-max-len? (append existing-check-ins current-day) u365))))
+    (map-set daily-check-ins caller 
+      (unwrap-panic (as-max-len? (append existing-check-ins current-day) u365)))
+
+    ;; Check for referral and reward if exists
+    ;; In a real scenario, this would call the referral contract
+    ;; (contract-call? .referral-system reward-referrer caller)
+    
+    (ok true)
   )
 )
 
