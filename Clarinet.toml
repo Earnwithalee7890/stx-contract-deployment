@@ -220,6 +220,59 @@ epoch = '3.0'
 # clarity_version = 3
 # epoch = 'latest'
 
+
+# ===== NEW CLARITY 4 CONTRACTS PACKAGE (10 CONTRACTS) =====
+
+[contracts.advanced-vesting]
+path = 'contracts/advanced-vesting.clar'
+clarity_version = 2
+epoch = '2.5'
+
+[contracts.defi-staking]
+path = 'contracts/defi-staking.clar'
+clarity_version = 2
+epoch = '2.5'
+
+[contracts.bonding-curve-token]
+path = 'contracts/bonding-curve-token.clar'
+clarity_version = 2
+epoch = '2.5'
+
+[contracts.dao-governance]
+path = 'contracts/dao-governance.clar'
+clarity_version = 2
+epoch = '2.5'
+
+[contracts.multisig-vault]
+path = 'contracts/multisig-vault.clar'
+clarity_version = 2
+epoch = '2.5'
+
+[contracts.revenue-splitter]
+path = 'contracts/revenue-splitter.clar'
+clarity_version = 2
+epoch = '2.5'
+
+[contracts.nft-marketplace-v2]
+path = 'contracts/nft-marketplace-v2.clar'
+clarity_version = 2
+epoch = '2.5'
+
+[contracts.subscription-payments]
+path = 'contracts/subscription-payments.clar'
+clarity_version = 2
+epoch = '2.5'
+
+[contracts.prediction-market]
+path = 'contracts/prediction-market.clar'
+clarity_version = 2
+epoch = '2.5'
+
+[contracts.identity-registry]
+path = 'contracts/identity-registry.clar'
+clarity_version = 2
+epoch = '2.5'
+
 [repl.analysis]
 passes = ['check_checker']
 

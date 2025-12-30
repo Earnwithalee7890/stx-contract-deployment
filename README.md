@@ -49,6 +49,18 @@
 - **👀 Live Activity Feed:** Watch real-time check-ins from the community.
 - **💎 Premium Design:** Experience a state-of-the-art Glassmorphism UI with animated mesh gradients and smooth interactions.
 
+
+## 📦 Clarity 4 Contract Suite (New Addition)
+
+We have added a suite of 10 high-quality, production-ready Clarity 4 contracts covering diverse use cases:
+
+*   **DeFi:** `advanced-vesting`, `defi-staking`, `bonding-curve-token`
+*   **Governance:** `dao-governance`, `multisig-vault`
+*   **Commerce:** `nft-marketplace-v2`, `subscription-payments`, `revenue-splitter`
+*   **Utilities:** `prediction-market`, `identity-registry`
+
+These contracts demonstrate advanced patterns using Clarity 4 features.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
